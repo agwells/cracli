@@ -62,19 +62,14 @@ This makes everything runnable in a normal Node environment!
 This package is still very much in its proof-of-concept stage. Things remaining to do:
 
 1. Tests!
-2. Actually put `index.js` in the `bin` for this module
+2. ~~Actually put `index.js` in the `bin` for this module~~
 3. Checking for flexibility -- can this utility handle all the different config options that CRA provides, or does it only work for the way I tend to use CRA?
 4. Better mock image imports? (e.g. read the actual requested file and provide its content in the module?)
 5. Streamline REPL usage
 6. Command-line args & help
-7. See if it could work as a globally installed package
+7. ~~See if it could work as a globally installed package~~
 8. Support for compiled scripts? And/or CLI webpack (pretty much required to get CSS and SCSS imports working)
-
-For now, since I haven't actually wired up the `bin` stuff, that part in the intro about doing `$(npm bin)/cracli src/scratch.tsx` is not true. You really have to do something more like this:
-
-```
-> node ./node_modules/cracli/index.js src/scratch.tsx
-```
+9. See if you can mung the module resolution to force it to use react-script's install of babel instead of having to list it as its own dependency
 
 ## Could I use this for Server-Side Rendering?
 

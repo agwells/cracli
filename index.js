@@ -18,17 +18,17 @@
 // We need to tell CRA to use the "test" environment so it will make everything
 // command-line friendly.
 // @ts-ignore
-process.env.NODE_ENV = 'test';
+process.env.NODE_ENV = "test";
 // @ts-ignore
-process.env.PUBLIC_URL = 'http://example.com';
+process.env.PUBLIC_URL = "http://example.com";
 
-const path = require('path');
-const defaultResolver = require('babel-plugin-module-resolver').resolvePath;
+const path = require("path");
+const defaultResolver = require("babel-plugin-module-resolver").resolvePath;
 
 // Makes the script crash on unhandled rejections instead of silently
 // ignoring them. In the future, promise rejections that are not handled will
 // terminate the Node.js process with a non-zero exit code.
-process.on('unhandledRejection', (err) => {
+process.on("unhandledRejection", err => {
   throw err;
 });
 
@@ -41,49 +41,48 @@ const config = {
   // NOTE we still have to tweak a couple of additional things, which CRA
   // takes care of through Webpack on the browser-side, and through Jest configs
   // on the CLI.
-  presets: ['babel-preset-react-app'],
+  presets: ["babel-preset-react-app"],
 
   // Tell Babel which file extensions to try to compile. (Note that it will
   // by default ignore files imported from node_modules, which is good.)
-  extensions: ['.js', '.jsx', '.ts', '.tsx'],
+  extensions: [".js", ".jsx", ".ts", ".tsx"],
 
   plugins: [
     [
-      require.resolve('babel-plugin-module-resolver'),
+      require.resolve("babel-plugin-module-resolver"),
       {
-        cwd: 'packagejson',
+        cwd: "packagejson",
         // Simulate "absolute" import paths, e.g. using
         // "import 'components/base/button/button';" instead of
         // "import '../../../../components/base/button/button';"
         // CRA does this by examining your tsconfig.json file and then configuring
         // Webpack (for browser) or a "--modules" flag (for Jest)
-        root: ['./src/'],
+        root: ["./src/"],
         extensions: [
           // Code files
-          '.js',
-          '.jsx',
-          '.ts',
-          '.tsx',
+          ".js",
+          ".jsx",
+          ".ts",
+          ".tsx",
           // Files to replace with empty placeholders
-          '.scss',
-          '.css',
-          '.svg',
-          '.png',
+          ".scss",
+          ".css",
+          ".svg",
+          ".png"
         ],
         // Ignore the CSS/SVG import syntax "import 'button.scss';"
         // Specifically, the import is still there, but we rewrite it to import
         // an empty file.
         resolvePath(sourcePath, currentFile, opts) {
           if (/\.(scss|css|svg|png)$/.test(sourcePath)) {
-            return path.resolve(__dirname, 'placeholder');
+            return path.resolve(__dirname, "placeholder");
           } else {
             return defaultResolver(sourcePath, currentFile, opts);
           }
-        },
-      },
-    ],
-  ],
+        }
+      }
+    ]
+  ]
 };
 
-require('@babel/register')(config);
-require(path.resolve(process.cwd(), process.argv[2]));
+require("@babel/register")(config);
